@@ -4,6 +4,8 @@ An environmental monitoring shield for the Arduino Uno. It watches temperature a
 
 I designed the schematic and the 2-layer PCB in KiCad 9.
 
+![3D render of the ServerGuard PCB](images/pcb-3d.png)
+
 ## Features
 
 - **Two sensors:** a DHT11 reads temperature and humidity, and an LM35 analog sensor gives a second temperature reading.
@@ -38,11 +40,23 @@ I designed the schematic and the 2-layer PCB in KiCad 9.
 | D13 | Buzzer |
 | 5V / GND | Sensor power |
 
+## Schematic
+
+![ServerGuard schematic](images/schematic.png)
+
+## Prototype
+
+Before designing the PCB, the team built and simulated the circuit in Tinkercad. The prototype firmware uses server-room style thresholds: a warning at 27 °C and an alarm at 30 °C. It also prints readings to the serial monitor at 9600 baud.
+
+![Tinkercad prototype](images/tinkercad-prototype.png)
+
 ## PCB
 
 - 2 layers, about 82 × 88 mm
 - +5V copper pour on the top layer and a GND pour on the bottom layer
 - Through-hole LEDs, resistors and buzzer for easy hand assembly. The LM35 is surface-mount (SOIC-8).
+
+![PCB layout](images/pcb-layout.png)
 
 ## Repository contents
 
@@ -51,6 +65,7 @@ I designed the schematic and the 2-layer PCB in KiCad 9.
 | `ECCSEgroup7.kicad_pro` | KiCad project file |
 | `ECCSEgroup7.kicad_sch` | Schematic |
 | `ECCSEgroup7.kicad_pcb` | PCB layout |
+| `images/` | 3D render, schematic, PCB layout and Tinkercad prototype |
 
 To view the design, open `ECCSEgroup7.kicad_pro` in KiCad 9 or later.
 
