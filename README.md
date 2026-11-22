@@ -46,7 +46,23 @@ I designed the schematic and the 2-layer PCB in KiCad 9.
 
 ## Prototype
 
-Before designing the PCB, the team built and simulated the circuit in Tinkercad. The prototype firmware uses server-room style thresholds: a warning at 27 °C and an alarm at 30 °C. It also prints readings to the serial monitor at 9600 baud.
+Before designing the PCB, the team built and simulated the circuit in Tinkercad. Tinkercad has no DHT11, so the prototype used a TMP36 for temperature and a soil moisture sensor as the humidity input.
+
+### Firmware
+
+I wrote the prototype firmware: [`prototype/serverguard_tinkercad/serverguard_tinkercad.ino`](prototype/serverguard_tinkercad/serverguard_tinkercad.ino). In a continuous loop, it:
+
+1. Reads the temperature and moisture sensors and prints both to the serial monitor (9600 baud).
+2. Compares the readings against server-room style thresholds:
+
+   | Reading | Warning (yellow LED) | Alarm (red LED + buzzer) |
+   |---------|----------------------|--------------------------|
+   | Temperature | 27 °C | 30 °C |
+   | Moisture (raw ADC) | 350 | 500 |
+
+3. Lights the green LED only when both readings are normal, and beeps the buzzer twice whenever either reading reaches its alarm level.
+
+The LED and buzzer pins match the PCB. To run on the PCB's sensors, the firmware needs two changes: read the DHT11 with a DHT library, and convert the LM35 with `voltage × 100` instead of the TMP36's `(voltage − 0.5) × 100`.
 
 ![Tinkercad prototype](images/tinkercad-prototype.png)
 
@@ -65,10 +81,11 @@ Before designing the PCB, the team built and simulated the circuit in Tinkercad.
 | `ECCSEgroup7.kicad_pro` | KiCad project file |
 | `ECCSEgroup7.kicad_sch` | Schematic |
 | `ECCSEgroup7.kicad_pcb` | PCB layout |
+| `prototype/serverguard_tinkercad/` | Arduino firmware from the Tinkercad prototype |
 | `images/` | 3D render, schematic, PCB layout and Tinkercad prototype |
 
 To view the design, open `ECCSEgroup7.kicad_pro` in KiCad 9 or later.
 
 ## My role
 
-This was a four-person team project for a college engineering course. I led the team, designed the schematic and PCB layout, wrote the Arduino firmware, and authored most of the presentation and the final report. My teammates came up with the initial concept and helped with brainstorming, Tinkercad prototyping and the presentation.
+This was a four-person team project for a college engineering course. I led the team, designed the schematic and PCB layout, wrote the Arduino firmware and authored most of the presentation and the final report. My teammates came up with the initial concept and helped with brainstorming, Tinkercad prototyping and the presentation.
